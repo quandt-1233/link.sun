@@ -57,6 +57,11 @@ You need to have [Node.js](https://nodejs.org/), [Neo4j](https://neo4j.com/) and
 
 **Docker:** You can use Docker to run the app. Read [docker-examples](/docker-examples) for more info.
 
+**Docker Compose**
+
+Start server: `docker-compose up`
+
+
 ## Browser Extensions
 Download Kutt's extension for web browsers via below links. You can also find the source code on [kutt-extension](https://github.com/abhijithvijayan/kutt-extension).
 * [Chrome](https://chrome.google.com/webstore/detail/kutt/pklakpjfiegjacoppcodencchehlfnpd)

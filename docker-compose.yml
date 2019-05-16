@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  web-kutt:
+    image: node:9.5.0-alpine
+    volumes:
+      - .:/code
+    working_dir: /code
+    entrypoint: sh run.sh
+    ports:
+      - "80:3000"
+    environment:
+      - KUTT_DOMAIN=kutt.local
+      - KUTT_PORT=3000
+      - REDIS_HOST=redis
+      - NEO4J_HOST=neo4j
+      - NEO4J_USER=neo4j
+      - NEO4J_PASS=n3O4j
+      - JWT_SECRET=C@tKeybOard
+      - RECAPTCHA_SITE_KEY=6Le426MUAAAAAKPVF3aoJkM9YPwp860g-PXi7ODq
+      - RECAPTCHA_SECRET_KEY=6Le426MUAAAAANXppt2tkUrOGO2lljs7VMTFwOYE
+      - GOOGLE_ANALYTICS_ID=UA-140321770-1
+    depends_on:
+      - redis
+      - neo4j
+  redis:
+    image: redis:alpine
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "17474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/n3O4j
+    volumes:
+      - ./db/dbms:/data/dbms
