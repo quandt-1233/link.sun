@@ -9,16 +9,18 @@ services:
     ports:
       - "80:3000"
     environment:
-      - KUTT_DOMAIN=kutt.local
+      - KUTT_DOMAIN=${KUTT_DOMAIN}
       - KUTT_PORT=3000
       - REDIS_HOST=redis
       - NEO4J_HOST=neo4j
       - NEO4J_USER=neo4j
       - NEO4J_PASS=n3O4j
       - JWT_SECRET=C@tKeybOard
-      - RECAPTCHA_SITE_KEY=6Le426MUAAAAAKPVF3aoJkM9YPwp860g-PXi7ODq
-      - RECAPTCHA_SECRET_KEY=6Le426MUAAAAANXppt2tkUrOGO2lljs7VMTFwOYE
-      - GOOGLE_ANALYTICS_ID=UA-140321770-1
+      - RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY}
+      - RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
+      - GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
     depends_on:
       - redis
       - neo4j
