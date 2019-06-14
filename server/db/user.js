@@ -60,6 +60,36 @@ exports.createUser = ({ email, password }) =>
       .catch(err => reject(err));
   });
 
+exports.createGoogleUser = ({ email }) =>
+  new Promise(async (resolve, reject) => {
+    const session = driver.session();
+    const salt = await bcrypt.genSalt(12);
+    const hash = await bcrypt.hash(`${Date.now()}`, salt);
+    const verificationToken = nanoid(40);
+    session
+      .writeTransaction(tx =>
+        tx.run(
+          'MERGE (u:USER { email: $email }) ' +
+            'SET u.password = $hash , u.verified = $verified , ' +
+            'u.verificationToken = $verificationToken , u.createdAt = $createdAt ' +
+            'RETURN u',
+          {
+            email,
+            hash,
+            createdAt: new Date().toJSON(),
+            verified: true, // Auto verified account
+            verificationToken,
+          }
+        )
+      )
+      .then(res => {
+        session.close();
+        const user = res.records[0].get('u').properties;
+        return resolve(user);
+      })
+      .catch(err => reject(err));
+  });
+
 exports.verifyUser = ({ verificationToken }) =>
   new Promise((resolve, reject) => {
     const session = driver.session();

@@ -82,8 +82,8 @@ const StyledButton = styled.button`
 
 const Icon = styled(SVG)`
   svg {
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
     margin-right: 12px;
     stroke: #fff;
 

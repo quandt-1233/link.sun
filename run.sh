@@ -19,6 +19,9 @@ module.exports = {
 
   // Report email address
   REPORT_EMAIL: "${MAIL_REPORT}",
+
+  // Google auth client ID
+  GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}",
 };
 EOF
 
@@ -84,6 +87,19 @@ module.exports = {
     The email address that will receive submitted reports.
   */
   REPORT_MAIL: process.env.MAIL_REPORT,
+
+  /*
+    Google client config
+  */
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  GOOGLE_REDIRECT_URL: process.env.GOOGLE_REDIRECT_URL,
+
+  /**
+   * G Suite hosted domain white list
+   */
+  G_SUITE_DOMAINS: process.env.G_SUITE_DOMAINS,
+
 };
 EOF
 

@@ -6,11 +6,20 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import emailValidator from 'email-validator';
 import LoginBox from './LoginBox';
-import LoginInputLabel from './LoginInputLabel';
-import TextInput from '../TextInput';
+// import LoginInputLabel from './LoginInputLabel';
+// import TextInput from '../TextInput';
 import Button from '../Button';
 import Error from '../Error';
-import { loginUser, showAuthError, signupUser, showPageLoading } from '../../actions';
+import {
+  loginUser,
+  showAuthError,
+  signupUser,
+  showPageLoading,
+  loginUserWithGoogle,
+} from '../../actions';
+// eslint-disable-next-line import/first
+import { GoogleLogin } from 'react-google-login';
+import config from '../../config';
 
 const Wrapper = styled.div`
   flex: 0 0 auto;
@@ -46,18 +55,18 @@ const User = styled.span`
   border-bottom: 1px dotted #999;
 `;
 
-const ForgetPassLink = styled.a`
-  align-self: flex-start;
-  margin: -24px 0 32px;
-  font-size: 14px;
-  text-decoration: none;
-  color: #2196f3;
-  border-bottom: 1px dotted transparent;
+// const ForgetPassLink = styled.a`
+//   align-self: flex-start;
+//   margin: -24px 0 32px;
+//   font-size: 14px;
+//   text-decoration: none;
+//   color: #2196f3;
+//   border-bottom: 1px dotted transparent;
 
-  :hover {
-    border-bottom-color: #2196f3;
-  }
-`;
+//   :hover {
+//     border-bottom-color: #2196f3;
+//   }
+// `;
 
 class Login extends Component {
   constructor() {
@@ -66,6 +75,7 @@ class Login extends Component {
     this.loginHandler = this.loginHandler.bind(this);
     this.signupHandler = this.signupHandler.bind(this);
     this.goTo = this.goTo.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
   }
 
   goTo(e) {
@@ -101,6 +111,19 @@ class Login extends Component {
     this.authHandler('signup');
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  responseGoogle(response) {
+    if (response.error) {
+      // eslint-disable-next-line no-console
+      console.log(response.error);
+    } else {
+      this.props.googleLogin({
+        accessToken: response.accessToken,
+        tokenId: response.tokenId,
+      });
+    }
+  }
+
   render() {
     return (
       <Wrapper>
@@ -110,7 +133,7 @@ class Login extends Component {
           </VerificationMsg>
         ) : (
           <LoginBox id="login-form" onSubmit={this.loginHandler}>
-            <LoginInputLabel htmlFor="email" test="test">
+            {/* <LoginInputLabel htmlFor="email" test="test">
               Email address
             </LoginInputLabel>
             <TextInput type="email" name="email" id="email" autoFocus />
@@ -118,9 +141,9 @@ class Login extends Component {
             <TextInput type="password" name="password" id="password" />
             <ForgetPassLink href="/reset-password" title="Forget password" onClick={this.goTo}>
               Forgot your password?
-            </ForgetPassLink>
+            </ForgetPassLink> */}
             <ButtonWrapper>
-              <Button
+              {/* <Button
                 icon={this.props.loading.login ? 'loader' : 'login'}
                 onClick={this.loginHandler}
                 big
@@ -134,7 +157,25 @@ class Login extends Component {
                 big
               >
                 Sign up
-              </Button>
+              </Button> */}
+
+              <GoogleLogin
+                clientId={config.GOOGLE_CLIENT_ID}
+                buttonText="Signing in with Google"
+                render={renderProps => (
+                  <Button
+                    icon={this.props.loading.login ? 'loader' : 'google'}
+                    onClick={renderProps.onClick}
+                    big
+                    disabled={renderProps.disabled}
+                  >
+                    Signing in with Google
+                  </Button>
+                )}
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseGoogle}
+                cookiePolicy="single_host_origin"
+              />
             </ButtonWrapper>
             <Error type="auth" left={0} />
           </LoginBox>
@@ -154,6 +195,7 @@ Login.propTypes = {
     signup: PropTypes.bool.isRequired,
   }).isRequired,
   login: PropTypes.func.isRequired,
+  googleLogin: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
   showError: PropTypes.func.isRequired,
   showPageLoading: PropTypes.func.isRequired,
@@ -164,6 +206,7 @@ const mapStateToProps = ({ auth, loading }) => ({ auth, loading });
 const mapDispatchToProps = dispatch => ({
   login: bindActionCreators(loginUser, dispatch),
   signup: bindActionCreators(signupUser, dispatch),
+  googleLogin: bindActionCreators(loginUserWithGoogle, dispatch),
   showError: bindActionCreators(showAuthError, dispatch),
   showPageLoading: bindActionCreators(showPageLoading, dispatch),
 });
