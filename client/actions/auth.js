@@ -59,6 +59,25 @@ export const loginUser = payload => async dispatch => {
   }
 };
 
+export const loginUserWithGoogle = payload => async dispatch => {
+  dispatch(showLoginLoading());
+  try {
+    const {
+      data: { token },
+    } = await axios.get(
+      `/api/auth/google/token?access_token=${payload.accessToken}&token_id=${payload.tokenId}`
+    );
+    cookie.set('token', token, { expires: 7 });
+    dispatch(authRenew());
+    dispatch(authUser(decodeJwt(token)));
+    dispatch(setDomain({ customDomain: decodeJwt(token).domain }));
+    dispatch(showPageLoading());
+    Router.push('/');
+  } catch ({ response }) {
+    dispatch(showAuthError(response.data.error));
+  }
+};
+
 export const logoutUser = () => dispatch => {
   dispatch(showPageLoading());
   cookie.remove('token');

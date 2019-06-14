@@ -4,7 +4,7 @@ const passport = require('passport');
 const JWT = require('jsonwebtoken');
 const axios = require('axios');
 const config = require('../config');
-const { isAdmin } = require('../utils');
+const { isAdmin, isValidDomain } = require('../utils');
 const transporter = require('../mail/mail');
 const { resetMailText, verifyMailText } = require('../mail/text');
 const {
@@ -16,6 +16,7 @@ const {
   requestPasswordReset,
   resetPassword,
 } = require('../db/user');
+const { OAuth2Client } = require('google-auth-library');
 
 /* Read email template */
 const resetEmailTemplatePath = path.join(__dirname, '../mail/template-reset.html');
@@ -69,10 +70,45 @@ const authenticate = (type, error, isStrict = true) =>
     })(req, res, next);
   };
 
+const verifyHostedDomainGoogleAuth = (req, res, next) => {
+  if (config.G_SUITE_DOMAINS && config.G_SUITE_DOMAINS.length) {
+    // Make sure to validate the id_token (a JSON web token) returned by Google
+    const idToken = req.query.token_id;
+    if (!idToken) {
+      res.status(400).json({ error: 'token_id must be provided.' });
+    } else {
+      (async () => {
+        try {
+          const client = new OAuth2Client(config.GOOGLE_CLIENT_ID);
+          const ticket = await client.verifyIdToken({
+            idToken,
+          });
+          const payload = ticket.getPayload();
+          const domain = payload.hd;
+          if (isValidDomain(domain)) {
+            authenticate('google-token', 'Google access token is not correct.', false)(
+              req,
+              res,
+              next
+            );
+          } else {
+            res.status(400).json({ error: 'Your are not in our Organization' });
+          }
+        } catch (err) {
+          res.status(400).json({ error: err.message });
+        }
+      })();
+    }
+  } else {
+    authenticate('google-token', 'Google access token is not correct.', false)(req, res, next);
+  }
+};
+
 exports.authLocal = authenticate('local', 'Login email and/or password are wrong.');
 exports.authJwt = authenticate('jwt', 'Unauthorized.');
 exports.authJwtLoose = authenticate('jwt', 'Unauthorized.', false);
 exports.authApikey = authenticate('localapikey', 'API key is not correct.', false);
+exports.authGoogleToken = verifyHostedDomainGoogleAuth;
 
 /* reCaptcha controller */
 exports.recaptcha = async (req, res, next) => {

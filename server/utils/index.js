@@ -15,6 +15,9 @@ exports.generateShortUrl = (id, domain, useHttps) => {
 
 exports.isAdmin = email => config.ADMIN_EMAILS.includes(email);
 
+exports.isValidDomain = domain =>
+  config.G_SUITE_DOMAINS.length === 0 || config.G_SUITE_DOMAINS.includes(domain);
+
 exports.getStatsCacheTime = total => {
   switch (true) {
     case total <= 5000:
