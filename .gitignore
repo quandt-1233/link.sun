@@ -3,3 +3,10 @@ client/.next/
 node_modules/
 client/config.js
 server/config.js
+
+.idea/
+
+.env
+
+# database mounted volume
+db/
