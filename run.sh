@@ -107,4 +107,5 @@ echo "Building Client"
 ./node_modules/.bin/next build ./client
 
 echo "Starting"
-npm start
+default_npm_script='start'
+npm run ${1:-default_npm_script}
