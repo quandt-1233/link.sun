@@ -5,7 +5,7 @@ services:
     volumes:
       - .:/code
     working_dir: /code
-    entrypoint: sh run.sh
+    entrypoint: sh run.sh ${NPM_SCRIPT}
     ports:
       - "${PORT}:3000"
     environment:
