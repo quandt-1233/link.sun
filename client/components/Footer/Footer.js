@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ReCaptcha from './ReCaptcha';
 import showRecaptcha from '../../helpers/recaptcha';
-import config from '../../config';
+// import config from '../../config';
 
 const Wrapper = styled.footer`
   width: 100%;
@@ -17,17 +17,21 @@ const Wrapper = styled.footer`
 
   a {
     text-decoration: none;
-    color: #2196f3;
+    color: #2d3436;
   }
 `;
 
 const Text = styled.p`
-  font-size: 13px;
-  font-weight: 300;
-  color: #666;
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
 
   @media only screen and (max-width: 768px) {
     font-size: 11px;
+  }
+
+  span {
+    color: #ff3f34;
   }
 `;
 
@@ -41,7 +45,12 @@ class Footer extends Component {
       <Wrapper isAuthenticated={this.props.isAuthenticated}>
         {!this.props.isAuthenticated && <ReCaptcha />}
         <Text>
-          Made with love by{' '}
+          ___Made with{' '}
+          <span role="img" aria-label="heart">
+            ❤️
+          </span>{' '}
+          by Avengers Group
+          {/* {' '}
           <a href="//thedevs.network/" title="The Devs">
             The Devs
           </a>
@@ -68,8 +77,8 @@ class Footer extends Component {
                 Contact us
               </a>
             </Fragment>
-          )}
-          .
+          )} */}
+          ___
         </Text>
       </Wrapper>
     );

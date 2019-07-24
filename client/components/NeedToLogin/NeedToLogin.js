@@ -1,7 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
-import Button from '../Button';
 import { fadeIn } from '../../helpers/animations';
 
 const Wrapper = styled.div`
@@ -74,13 +72,13 @@ const NeedToLogin = () => (
   <Wrapper>
     <TitleWrapper>
       <Title>
-        Manage links, set custom <b>domains</b> and view <b>stats</b>.
+        Manage <b>URLs</b> and view <b>stats</b>.
       </Title>
-      <Link href="/login" prefetch>
+      {/* <Link href="/login" prefetch>
         <a href="/login" title="login / signup">
           <Button>Login / Signup</Button>
         </a>
-      </Link>
+      </Link> */}
     </TitleWrapper>
     <Image src="/images/callout.png" />
   </Wrapper>

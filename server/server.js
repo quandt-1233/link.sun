@@ -61,7 +61,7 @@ app.prepare().then(() => {
 
   /* View routes */
   server.get('/', (req, res) => app.render(req, res, '/'));
-  server.get('/login', (req, res) => app.render(req, res, '/login'));
+  // server.get('/login', (req, res) => app.render(req, res, '/login'));
   server.get('/logout', (req, res) => app.render(req, res, '/logout'));
   server.get('/settings', (req, res) => app.render(req, res, '/settings'));
   server.get('/stats', (req, res) => app.render(req, res, '/stats', req.query));

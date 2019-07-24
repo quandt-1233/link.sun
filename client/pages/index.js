@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import BodyWrapper from '../components/BodyWrapper';
 import Shortener from '../components/Shortener';
-import Features from '../components/Features';
+// import Features from '../components/Features';
 import Extensions from '../components/Extensions';
 import Table from '../components/Table';
 import NeedToLogin from '../components/NeedToLogin';
@@ -35,7 +35,7 @@ class Homepage extends Component {
         <Shortener />
         {needToLogin}
         {table}
-        <Features />
+        {/* <Features /> */}
         <Extensions />
         <Footer />
       </BodyWrapper>

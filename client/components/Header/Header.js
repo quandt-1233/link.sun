@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import HeaderLogo from './HeaderLogo';
-import HeaderLeftMenu from './HeaderLeftMenu';
+// import HeaderLeftMenu from './HeaderLeftMenu';
 import HeaderRightMenu from './HeaderRightMenu';
 import { showPageLoading } from '../../actions';
 
@@ -38,7 +38,7 @@ const Header = props => (
   <Wrapper>
     <LeftMenuWrapper>
       <HeaderLogo showPageLoading={props.showPageLoading} />
-      <HeaderLeftMenu />
+      {/* <HeaderLeftMenu /> */}
     </LeftMenuWrapper>
     <HeaderRightMenu showPageLoading={props.showPageLoading} />
   </Wrapper>

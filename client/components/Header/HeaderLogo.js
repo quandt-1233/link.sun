@@ -9,7 +9,7 @@ const LogoImage = styled.div`
     display: flex;
     align-items: center;
     margin: 0 8px 0 0;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     text-decoration: none;
     color: inherit;
@@ -23,8 +23,8 @@ const LogoImage = styled.div`
   }
 
   img {
-    width: 18px;
-    margin-right: 11px;
+    width: 1.8em;
+    margin-right: 0.4em;
   }
 `;
 
@@ -41,7 +41,7 @@ const HeaderLogo = props => {
     <LogoImage>
       <a href="/" title="Homepage" onClick={goTo}>
         <img src="/images/logo.svg" alt="" />
-        Kutt.it
+        Sun.shine
       </a>
     </LogoImage>
   );

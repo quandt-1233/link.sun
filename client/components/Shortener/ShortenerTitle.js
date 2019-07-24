@@ -12,14 +12,6 @@ const Title = styled.h1`
   }
 `;
 
-const Underline = styled.span`
-  border-bottom: 2px dotted #999;
-`;
-
-const ShortenerTitle = () => (
-  <Title>
-    Kutt your links <Underline>shorter</Underline>.
-  </Title>
-);
+const ShortenerTitle = () => <Title>Shining your URLs</Title>;
 
 export default ShortenerTitle;

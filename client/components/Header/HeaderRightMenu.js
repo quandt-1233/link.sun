@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import HeaderMenuItem from './HeaderMenuItem';
 import { logoutUser, showPageLoading } from '../../actions';
 import Button from '../Button';
+import Login from '../Login/Login';
 
 const List = styled.ul`
   display: flex;
@@ -36,9 +37,10 @@ const HeaderMenu = props => {
 
   const login = !props.auth.isAuthenticated && (
     <HeaderMenuItem>
-      <a href="/login" title="login / signup" onClick={goTo}>
+      {/* <a href="/login" title="login / signup" onClick={goTo}>
         <Button>Login / Sign up</Button>
-      </a>
+      </a> */}
+      <Login />
     </HeaderMenuItem>
   );
   const logout = props.auth.isAuthenticated && (

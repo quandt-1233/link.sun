@@ -71,7 +71,7 @@ export const loginUserWithGoogle = payload => async dispatch => {
     dispatch(authRenew());
     dispatch(authUser(decodeJwt(token)));
     dispatch(setDomain({ customDomain: decodeJwt(token).domain }));
-    dispatch(showPageLoading());
+    // dispatch(showPageLoading());
     Router.push('/');
   } catch ({ response }) {
     dispatch(showAuthError(response.data.error));

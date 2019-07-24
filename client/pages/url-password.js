@@ -5,6 +5,19 @@ import axios from 'axios';
 import BodyWrapper from '../components/BodyWrapper';
 import TextInput from '../components/TextInput';
 import Button from '../components/Button';
+import Footer from '../components/Footer';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  align-items: cetner;
+  img {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+  }
+`;
 
 const Title = styled.h3`
   font-size: 24px;
@@ -86,7 +99,11 @@ class UrlPasswordPage extends Component {
     if (!this.props.query) {
       return (
         <BodyWrapper>
-          <Title>404 | Not found.</Title>
+          <Wrapper>
+            <Title>Whoops, We can&#8217;t seem to find the page you&#8217;re looking for. </Title>
+            <img src="/images/cat-404-not-found.gif" alt="" />
+          </Wrapper>
+          <Footer />
         </BodyWrapper>
       );
     }

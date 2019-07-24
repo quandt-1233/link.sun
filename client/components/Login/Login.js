@@ -42,6 +42,11 @@ const ButtonWrapper = styled.div`
       margin-left: 16px;
     }
   }
+  button {
+    height: 3.5em;
+    padding: 0px 1.9em;
+    margin: 3em 0em 0em 0em;
+  }
 `;
 
 const VerificationMsg = styled.p`

@@ -11,7 +11,7 @@ const Section = styled.div`
   align-items: center;
   margin: 0;
   padding: 90px 0 100px;
-  background-color: #282828;
+  background-color: #eaeaea;
 
   @media only screen and (max-width: 768px) {
     margin: 0;
@@ -36,7 +36,7 @@ const Title = styled.h3`
   font-size: 28px;
   font-weight: 300;
   margin: 0 0 60px;
-  color: #f5f5f5;
+  color: black;
 
   @media only screen and (max-width: 768px) {
     font-size: 24px;
